@@ -1,0 +1,16 @@
+
+loadbalancer:
+    build: src/loadbalancer
+    ports:
+        - "8080:80"
+    links:
+        - web1:web1
+        - web2:web2
+web1:
+    build: src/web
+    ports:
+        - "5000"
+web2:
+    build: src/web
+    ports:
+        - "5000"
