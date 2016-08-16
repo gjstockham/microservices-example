@@ -13,6 +13,8 @@ The current plan is something like this:
 ## Front end
 
 * Nginx acting as a load balancer
+
+Custom development:
 * Two front-end web sites (currently dotnet core, but will probably change that due to elasticsearch libraries)
 
 ## Back end
@@ -20,16 +22,18 @@ The current plan is something like this:
 * RethinkDB to hold crawl status / site information
 * Redis to cache downloaded pages
 * Gearman to manage the job queue
+* Gearman-UI to view status
 
-Custom developments:
+Custom development:
 * Supervisor to control which jobs get added to the queue (fetch, parse, index)
 * Fetcher to get the web pages
 * Parser to extract links to be added back to queue
 * Indexer to add to Elasticsearch
+* Admin website to monitor
 
 ## Future considerations
 
 * Adaptive crawl schedules
-
+* ELK stack for logging?
 
 
