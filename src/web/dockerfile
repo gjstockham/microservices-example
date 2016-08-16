@@ -1,0 +1,11 @@
+FROM microsoft/dotnet:1.0.0-preview2-sdk
+
+COPY . /dotnetapp
+WORKDIR /dotnetapp
+
+RUN ["dotnet", "restore"]
+RUN ["dotnet", "build"]
+ 
+EXPOSE 5000/tcp
+ENTRYPOINT ["dotnet", "run"]
+

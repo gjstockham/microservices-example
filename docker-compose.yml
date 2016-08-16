@@ -10,7 +10,11 @@ web1:
     build: src/web
     ports:
         - "5000"
+    environment:
+        ASPNETCORE_SERVER.URLS: "http://::5000"
 web2:
     build: src/web
     ports:
-        - "5000"
+        - "5000"    
+    environment:
+        ASPNETCORE_SERVER.URLS: "http://::5000"
