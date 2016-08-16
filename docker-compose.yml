@@ -1,20 +1,43 @@
+version: '2'
 
-loadbalancer:
-    build: src/loadbalancer
-    ports:
-        - "8080:80"
-    links:
-        - web1:web1
-        - web2:web2
-web1:
-    build: src/web
-    ports:
-        - "5000"
-    environment:
-        ASPNETCORE_SERVER.URLS: "http://::5000"
-web2:
-    build: src/web
-    ports:
-        - "5000"    
-    environment:
-        ASPNETCORE_SERVER.URLS: "http://::5000"
+services: 
+    web1:
+        build: src/web
+        ports:
+            - "5000"
+        environment:
+            ASPNETCORE_SERVER.URLS: "http://::5000"
+    web2:
+        build: src/web
+        ports:
+            - "5000"    
+        environment:
+            ASPNETCORE_SERVER.URLS: "http://::5000"    
+    loadbalancer:
+        build: src/loadbalancer
+        ports:
+            - "8080:80"
+        links:
+            - web1:web1
+            - web2:web2
+    es_master:
+        image: elasticsearch:latest
+        command: "elasticsearch -Des.cluster.name=stormsearch -Des.node.master=true -Des.node.data=false"
+        ports:
+            - "9200:9200"
+            - "9300"
+        environment:
+            ES_HEAP_SIZE: 512m
+    es1:
+        image: elasticsearch:latest
+        command: "elasticsearch -Des.cluster.name=stormsearch -Des.discovery.zen.ping.unicast.hosts=es_master"
+        ports:
+            - "9200"
+            - "9300"
+        volumes:
+            - "./data/es1:/usr/share/elasticsearch/data"
+        links:
+            - es_master
+        environment:
+            ES_HEAP_SIZE: 1g
+
