@@ -12,22 +12,23 @@ The current plan is something like this:
 
 ## Front end
 
-Nginx acting as a load balancer
-Two front-end web sites (currently dotnet core, but will probably change that due to elasticsearch libraries)
+* Nginx acting as a load balancer
+* Two front-end web sites (currently dotnet core, but will probably change that due to elasticsearch libraries)
 
 ## Back end
-Elasticsearch as the search index, split into a master and data node
+* Elasticsearch as the search index, split into a master and data node
+* RethinkDB to hold crawl status / site information
+* Redis to cache downloaded pages
+* Gearman to manage the job queue
 
-RethinkDB to hold crawl status / site information
-Redis to cache downloaded pages
-Gearman to manage the job queue
-
-Custom supervisor to control which jobs get added to the queue (fetch, parse, index)
-Custom fetcher to get the web pages
-Custom parser to extract links to be added back to queue
-Custom indexer to add to Elasticsearch
+Custom developments:
+* Supervisor to control which jobs get added to the queue (fetch, parse, index)
+* Fetcher to get the web pages
+* Parser to extract links to be added back to queue
+* Indexer to add to Elasticsearch
 
 ## Future considerations
+
 * Adaptive crawl schedules
 
 
