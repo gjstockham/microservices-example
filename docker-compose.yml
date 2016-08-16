@@ -40,4 +40,14 @@ services:
             - es_master
         environment:
             ES_HEAP_SIZE: 1g
+    gearman1:
+        image: kendu/gearman
+        ports:
+            - "4730:4730"
+    gearman_ui:
+        build: src/gearman/ui
+        ports:
+            - "8085:80"
+        links:
+            - gearman1
 
