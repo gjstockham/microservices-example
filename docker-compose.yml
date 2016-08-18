@@ -1,6 +1,12 @@
 version: '2'
 
 services: 
+    admin:
+        build: src/admin
+        ports:
+            - "8090:3000"
+        links:
+            - gearman1:gearman1
     web1:
         build: src/web
         ports:
